@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "851918780770",
+    "firebase_url": "https://steezy-app.firebaseio.com",
+    "project_id": "steezy-app",
+    "storage_bucket": "steezy-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:851918780770:android:298082f933a5acaa14943b",
+        "android_client_info": {
+          "package_name": "com.steezy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "851918780770-g8l0eoa23o0d0jlmqod2dq5p8n4cbqlu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACsOXJtm3MvLV38XSSE9QWfZnVFNRxo9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "851918780770-g8l0eoa23o0d0jlmqod2dq5p8n4cbqlu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "851918780770-2kvenomr3pmcrcdp1qfnv91k35uc7j8s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.steezy"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:851918780770:android:a2755b2d7ebacfb714943b",
+        "android_client_info": {
+          "package_name": "com.steezyapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "851918780770-g8l0eoa23o0d0jlmqod2dq5p8n4cbqlu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACsOXJtm3MvLV38XSSE9QWfZnVFNRxo9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "851918780770-g8l0eoa23o0d0jlmqod2dq5p8n4cbqlu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "851918780770-2kvenomr3pmcrcdp1qfnv91k35uc7j8s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.steezy"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
