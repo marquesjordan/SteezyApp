@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {Dimensions, View, Text, Image, TouchableOpacity} from 'react-native';
-import { Content, Header, Button, Form, Item, Input, Label } from 'native-base';
+import { Input, Button } from '@ui-kitten/components';
 
 import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
@@ -92,33 +92,46 @@ export default AuthForm = ({type, text, navigateCallback}) => {
                     />
                 </View>
                 <View style={{margin: 20}}>
-                    <Form>
-                        <Item rounded last style={{borderRadius: 8}}>
-                            <Label>Email</Label>
-                            <Input value={email} onChangeText={text => setEmail(text)} />
-                        </Item>
-                        <View style={{marginVertical: 5}} />
-                        <Item rounded last style={{borderRadius: 8}}>
-                            <Label>Password</Label>
-                            <Input secureTextEntry={true} value={password} onChangeText={text => setPassword(text)} />
-                        </Item>
-                    </Form>
+                    <View style={{justifyContent: 'center', marginBottom: 20}}>
+                        <Text style={{
+                            fontSize: 30, 
+                            fontWeight: 'bold', 
+                            textAlign: "center",
+                            fontFamily: "Allerta-Stencil"
+                        }}>
+                            {type === 'login' ? "Sign In" : "Register"}
+                        </Text>
+                    </View>
+                    <Input
+                        placeholder='Email'
+                        value={email}
+                        onChangeText={text => setEmail(text)}
+                    />
+                    <View style={{marginVertical: 5}} />
+                    <Input
+                        placeholder='Password'
+                        value={password}
+                        onChangeText={text => setPassword(text)}
+                    />
+                    <View style={{marginTop: 20, marginHorizontal: 10, alignItems: 'flex-end'}}>
+                        <View style={{marginHorizontal: 10}}>
+                            <Button 
+                                appearance='ghost' 
+                                onPress={type === 'login' ? () => __doSingIn() : () => __doSignUp()}
+                            >
+                                {type === 'login' ? "Sign In" : "Continue"}
+                            </Button>
+                        </View>
+                    </View>
                 </View>
                 <View style={{height: 35, justifyContent: 'center'}}>
-                    <Text style={{color: 'red', fontWeight: 'bold', textAlign: 'center'}}>{error}</Text>
-                </View>
-                <View style={{marginTop: 20, marginHorizontal: 10, alignItems: 'flex-end'}}>
-                    <View style={{marginHorizontal: 10}}>
-                        <Button transparent onPress={type === 'login' ? () => __doSingIn() : () => __doSignUp()}>
-                            <Text style={{textAlign: 'right', fontSize: 17, color: '#000', fontWeight: 'bold'}}>{type === 'login' ? "Sign In" : "Continue"}</Text>
-                        </Button>
-                    </View>
+                    <Text style={{color: 'red', fontFamily: 'Allerta-Stencil', fontWeight: 'bold', textAlign: 'center'}}>{error}</Text>
                 </View>
             </View>
             <View style={{justifyContent: 'flex-end', flexGrow: 1, paddingVertical: 20 }}>
                 <TouchableOpacity onPress={navigateCallback}>
                     <View style={{marginTop: 20, marginHorizontal: 20, justifyContent: 'center'}}>
-                        <Text style={{fontSize: 16, color: '#F24405', fontWeight: 'bold', textAlign: 'center'}}>
+                        <Text style={{fontSize: 16, color: '#F24405', fontFamily: "Allerta-Stencil", fontWeight: 'bold', textAlign: 'center'}}>
                             {text}
                         </Text>
                     </View>

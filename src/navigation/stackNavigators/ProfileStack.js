@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity, SafeAreaView } from 'react-native';
-import { Container, Header, Content, Button, Text } from 'native-base';
+import { View, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AuthForm from '../../components/AuthForm';
 import { useNavigation } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
+import { Button, Text } from '@ui-kitten/components';
 
 
 const Stack = createStackNavigator();
@@ -64,11 +64,11 @@ const AuthButtons = () => {
   return (
     <>
       <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-        <Button transparent onPress={() => navigation.navigate('SignIn')}>
-          <Text style={{ fontSize: 22, color: '#F24405' }}>Login</Text>
+        <Button appearance='filled' style={{ fontSize: 22, color: '#F24405' }} appearance='ghost' onPress={() => navigation.navigate('SignIn')}>
+          Login
         </Button>
-        <Button style={{backgroundColor: '#F24405'}} onPress={() => navigation.navigate('SignUp')}>
-          <Text style={{ fontSize: 22 }}> Join Now </Text>
+        <Button  style={{backgroundColor: '#F24405', fontSize: 22 }} onPress={() => navigation.navigate('SignUp')}>
+          Join Now
         </Button> 
       </View>
     </>
