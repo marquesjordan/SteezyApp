@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {View, Text, SafeAreaView, Dimensions, StyleSheet, FlatList, ImageBackground} from 'react-native';
 import Video from "react-native-video";
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
 import {
     OffsetYProvider,
     IndexProvider,
@@ -72,10 +74,11 @@ export default HomeScreen = () => {
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
-            <View style={{paddingHorizontal: 20, marginVertical: 30}}>
-                <Text style={{textAlign: 'left', fontWeight: 'bold', fontSize: 22}}>
-                    New Steazy
+            <View style={{paddingHorizontal: 20, marginVertical: 10, alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{color: '#F24405', textAlign: 'left', fontWeight: 'bold', fontSize: 22, fontFamily: 'Allerta-Stencil'}}>
+                    Our Steezy
                 </Text>
+                <FontAwesome5 style={{fontSize: 30}} name={'fist-raised'} />
             </View>
             <OffsetYProvider
                 columnsPerRow={1}

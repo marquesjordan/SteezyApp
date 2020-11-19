@@ -10,14 +10,14 @@ import CartStack from './stackNavigators/CartStack';
 import FavoriteStack from './stackNavigators/FavoriteStack';
 import ProfileStack from './stackNavigators/ProfileStack';
 
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { Icon } from '@ui-kitten/components';
 
 const Tab = createBottomTabNavigator();
 
 const styles = StyleSheet.create({
     icon: {
-      width: 32,
-      height: 32,
+      fontSize: 30
     },
 });
 
@@ -27,8 +27,9 @@ export default Navigation = () => {
             <Tab.Navigator
                 initialRouteName="Menu"
                 tabBarOptions={{
+                    
                     labelStyle: {
-                        fontSize: 14
+                        fontSize: 12
                     },
                     activeTintColor: '#F24405',
                     showLabel: false
@@ -38,38 +39,56 @@ export default Navigation = () => {
                     name="Home"
                     component={HomeStack}    
                     options={{
-                        tabBarLabel: "Routes",
                         tabBarIcon: ({ focused, color }) => (
                             focused
-                            ?   <Icon
-                                  style={styles.icon}
-                                  fill='red'
-                                  name='star'
-                                />
-                            : <Icon
-                                style={styles.icon}
-                                fill='#8F9BB3'
-                                name='star'
-                            />
+                            ? <FontAwesome5 style={{fontSize: 30, color: '#F24405', textAlign: 'center'}} name={'fist-raised'} />
+                            : <FontAwesome5 style={{fontSize: 30}} name={'fist-raised'} />
                         ),
                     }}            
                 />                
                 <Tab.Screen
                     name="Shop"
                     component={ShopStack}
-                
+                    options={{
+                        tabBarIcon: ({ focused, color }) => (
+                            focused
+                            ? <FontAwesome5 style={{fontSize: 30, color: '#F24405'}} name={'store'} />
+                            : <FontAwesome5 style={{fontSize: 30}} name={'store'} />
+                        ),
+                    }}  
                 />
                 <Tab.Screen
                     name="Favorites"
                     component={FavoriteStack}
+                    options={{
+                        tabBarIcon: ({ focused, color }) => (
+                            focused
+                            ? <FontAwesome5 style={{fontSize: 30, color: '#F24405'}} name={'gem'} />
+                            : <FontAwesome5 style={{fontSize: 30}} name={'gem'} />
+                        ),
+                    }}  
                 />
                 <Tab.Screen
                     name="Cart"
                     component={CartStack}
+                    options={{
+                        tabBarIcon: ({ focused, color }) => (
+                            focused
+                            ? <FontAwesome5 style={{fontSize: 30, color: '#F24405'}} name={'comments'} />
+                            : <FontAwesome5 style={{fontSize: 30}} name={'comments'} />
+                        ),
+                    }}  
                 />
                 <Tab.Screen
                     name="Profile"
                     component={ProfileStack}
+                    options={{
+                        tabBarIcon: ({ focused, color }) => (
+                            focused
+                            ? <FontAwesome5 style={{fontSize: 30, color: '#F24405'}} name={'id-badge'} />
+                            : <FontAwesome5 style={{fontSize: 30}} name={'id-badge'} />
+                        ),
+                    }}  
                 />                
             </Tab.Navigator>
         </NavigationContainer>
