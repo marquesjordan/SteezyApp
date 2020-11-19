@@ -13,8 +13,9 @@ export default ProfileScreen = ({ navigation }) => {
     }, [auth().currentUser]);
   
     const __isTheUserAuthenticated = () => {
+      console.log(auth().currentUser);
       let user = auth().currentUser;
-      if (user) {
+      if (user !== null) {
         console.log(user);
         setAuthenticated(true)
       } else {
@@ -48,7 +49,7 @@ export default ProfileScreen = ({ navigation }) => {
     return (
       <View style={styles.container}>
         
-        {auth().currentUser && (
+        {authenticated && (
           <View>
             <Text>Welcome {auth().currentUser.email}</Text>
             <TouchableOpacity onPress={__signOut}>
@@ -57,7 +58,7 @@ export default ProfileScreen = ({ navigation }) => {
           </View>
         )}
   
-        {!auth().currentUser && (
+        {!authenticated && (
           <AuthButtons navigation={navigation} />
         )}
   

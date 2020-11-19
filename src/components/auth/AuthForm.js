@@ -30,6 +30,7 @@ export default AuthForm = ({type, text, navigateCallback}) => {
 
         try {
           let response = await auth().signInWithEmailAndPassword(email, password)
+          console.log('xs ', response)
           if (response && response.user) {
             console.log("Success ✅", "Authenticated successfully")
             navigation.reset({
@@ -43,6 +44,7 @@ export default AuthForm = ({type, text, navigateCallback}) => {
           }
         } catch (e) {
           console.error(e.message)
+          setError('Somethings is off! Try Again.')
         }
       }
 
@@ -75,68 +77,85 @@ export default AuthForm = ({type, text, navigateCallback}) => {
             setEmail('');
             setPassword('');
             setError('');
-            navigation.navigate('Profile')
-          }
+            navigation.reset({
+                index: 1,
+                routes: [
+                  {
+                    name: 'Profile'
+                  },
+                ],
+              })
+        }
         } catch (e) {
           console.error(e.message)
         }
     }
 
-    return (
-        <View style={{flex:1, width}}>
+    const styles = {
+        container: {flex:1, width},
+        wrapper: {flexGrow: 2, justifyContent: 'flex-end'},
+        header: {justifyContent: 'center',borderWidth:22, flex: 1, alignItems: 'center'},
+        form: {margin: 20},
+        formHeader: {justifyContent: 'center', marginBottom: 20},
+        formHeaderText: {fontSize: 30, fontWeight: 'bold',textAlign: "center", fontFamily: "Allerta-Stencil" },
+        formButton: {marginTop: 20, marginHorizontal: 10, paddingHorizontal: 10, alignItems: 'flex-end'},
+        errorContainer: {height: 35, justifyContent: 'center'},
+        errorText: {color: 'red', fontFamily: 'Allerta-Stencil', fontWeight: 'bold', textAlign: 'center'},
+        footer: {justifyContent: 'flex-end', flexGrow: 1, paddingVertical: 20 },
+        footerText: {fontSize: 16, color: '#F24405', fontFamily: "Allerta-Stencil", fontWeight: 'bold', textAlign: 'center'}
+    }
 
-            <View style={{flexGrow: 2, justifyContent: 'flex-end'}}>
-                <View style={{justifyContent: 'center',borderWidth:22, flex: 1, alignItems: 'center'}}>
+    return (
+        <View style={styles.container}>
+            <View style={styles.wrapper}>
+                <View style={styles.header}>
                     <Image
                         source={require('../../../assets/steezy-logo.png')}
                     />
                 </View>
-                <View style={{margin: 20}}>
-                    <View style={{justifyContent: 'center', marginBottom: 20}}>
-                        <Text style={{
-                            fontSize: 30, 
-                            fontWeight: 'bold', 
-                            textAlign: "center",
-                            fontFamily: "Allerta-Stencil"
-                        }}>
+                <View style={styles.form}>
+                    <View style={styles.formHeader}>
+                        <Text style={styles.formHeaderText}>
                             {type === 'login' ? "Sign In" : "Register"}
                         </Text>
                     </View>
                     <Input
                         placeholder='Email'
                         value={email}
-                        onChangeText={text => setEmail(text)}
+                        onChangeText={(text) => {
+                            setError('');
+                            setEmail(text);
+                        }}
                     />
 
                     <View style={{marginVertical: 5}} />
                     <Input
                         placeholder='Password'
                         value={password}
-                        onChangeText={text => setPassword(text)}
+                        onChangeText={(text) => {
+                            setError('');
+                            setPassword(text);
+                        }}
                     />
-                    <View style={{marginTop: 20, marginHorizontal: 10, alignItems: 'flex-end'}}>
-                        <View style={{marginHorizontal: 10}}>
-                            <Button 
-                                status='basic'
-                                appearance='ghost' 
-                                onPress={type === 'login' ? () => __doSingIn() : () => __doSignUp()}
-                            >
-                                {type === 'login' ? "Sign In" : "Continue"}
-                            </Button>
-                        </View>
+                    <View style={styles.formButton}>
+                        <Button 
+                            status='basic'
+                            appearance='ghost' 
+                            onPress={type === 'login' ? () => __doSingIn() : () => __doSignUp()}
+                        >
+                            {type === 'login' ? "Sign In" : "Continue"}
+                        </Button>
                     </View>
                 </View>
-                <View style={{height: 35, justifyContent: 'center'}}>
-                    <Text style={{color: 'red', fontFamily: 'Allerta-Stencil', fontWeight: 'bold', textAlign: 'center'}}>{error}</Text>
+                <View style={styles.errorContainer}>
+                    <Text style={styles.errorText}>{error}</Text>
                 </View>
             </View>
-            <View style={{justifyContent: 'flex-end', flexGrow: 1, paddingVertical: 20 }}>
+            <View style={styles.footer}>
                 <TouchableOpacity onPress={navigateCallback}>
-                    <View style={{marginTop: 20, marginHorizontal: 20, justifyContent: 'center'}}>
-                        <Text style={{fontSize: 16, color: '#F24405', fontFamily: "Allerta-Stencil", fontWeight: 'bold', textAlign: 'center'}}>
-                            {text}
-                        </Text>
-                    </View>
+                    <Text style={styles.footerText}>
+                        {text}
+                    </Text>
                 </TouchableOpacity>
             </View>
             
