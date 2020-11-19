@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
+import {StyleSheet} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator, BottomTabBar } from '@react-navigation/bottom-tabs';
 
@@ -9,7 +10,16 @@ import CartStack from './stackNavigators/CartStack';
 import FavoriteStack from './stackNavigators/FavoriteStack';
 import ProfileStack from './stackNavigators/ProfileStack';
 
+import { Icon } from '@ui-kitten/components';
+
 const Tab = createBottomTabNavigator();
+
+const styles = StyleSheet.create({
+    icon: {
+      width: 32,
+      height: 32,
+    },
+});
 
 export default Navigation = () => {
     return (
@@ -21,12 +31,28 @@ export default Navigation = () => {
                         fontSize: 14
                     },
                     activeTintColor: '#F24405',
-                    showLabel: true
+                    showLabel: false
                 }}
             >
                 <Tab.Screen
                     name="Home"
-                    component={HomeStack}                
+                    component={HomeStack}    
+                    options={{
+                        tabBarLabel: "Routes",
+                        tabBarIcon: ({ focused, color }) => (
+                            focused
+                            ?   <Icon
+                                  style={styles.icon}
+                                  fill='red'
+                                  name='star'
+                                />
+                            : <Icon
+                                style={styles.icon}
+                                fill='#8F9BB3'
+                                name='star'
+                            />
+                        ),
+                    }}            
                 />                
                 <Tab.Screen
                     name="Shop"
