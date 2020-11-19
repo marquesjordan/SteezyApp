@@ -88,7 +88,7 @@ export default AuthForm = ({type, text, navigateCallback}) => {
             <View style={{flexGrow: 2, justifyContent: 'flex-end'}}>
                 <View style={{justifyContent: 'center',borderWidth:22, flex: 1, alignItems: 'center'}}>
                     <Image
-                        source={require('../../assets/steezy-logo.png')}
+                        source={require('../../../assets/steezy-logo.png')}
                     />
                 </View>
                 <View style={{margin: 20}}>
@@ -107,6 +107,7 @@ export default AuthForm = ({type, text, navigateCallback}) => {
                         value={email}
                         onChangeText={text => setEmail(text)}
                     />
+
                     <View style={{marginVertical: 5}} />
                     <Input
                         placeholder='Password'
@@ -116,6 +117,7 @@ export default AuthForm = ({type, text, navigateCallback}) => {
                     <View style={{marginTop: 20, marginHorizontal: 10, alignItems: 'flex-end'}}>
                         <View style={{marginHorizontal: 10}}>
                             <Button 
+                                status='basic'
                                 appearance='ghost' 
                                 onPress={type === 'login' ? () => __doSingIn() : () => __doSignUp()}
                             >
