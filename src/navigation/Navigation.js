@@ -6,7 +6,7 @@ import { createBottomTabNavigator, BottomTabBar } from '@react-navigation/bottom
 
 import HomeStack from './stackNavigators/HomeStack';
 import ShopStack from './stackNavigators/ShopStack';
-import CartStack from './stackNavigators/CartStack';
+import ChatStack from './stackNavigators/ChatStack';
 import FavoriteStack from './stackNavigators/FavoriteStack';
 import ProfileStack from './stackNavigators/ProfileStack';
 
@@ -52,8 +52,8 @@ export default Navigation = () => {
                     options={{
                         tabBarIcon: ({ focused, color }) => (
                             focused
-                            ? <FontAwesome5 style={{fontSize: 30, color: '#F24405'}} name={'store'} />
-                            : <FontAwesome5 style={{fontSize: 30}} name={'store'} />
+                            ? <FontAwesome5 style={{fontSize: 30, color: '#F24405'}} name={'money-bill-alt'} />
+                            : <FontAwesome5 style={{fontSize: 30}} name={'money-bill-alt'} />
                         ),
                     }}  
                 />
@@ -69,8 +69,8 @@ export default Navigation = () => {
                     }}  
                 />
                 <Tab.Screen
-                    name="Cart"
-                    component={CartStack}
+                    name="Chat"
+                    component={ChatStack}
                     options={{
                         tabBarIcon: ({ focused, color }) => (
                             focused
