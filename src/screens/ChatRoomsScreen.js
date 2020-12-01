@@ -5,13 +5,15 @@ import {
   StyleSheet,
   Text,
   FlatList,
-  TouchableOpacity,
+  ImageBackground,
   ActivityIndicator
 } from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
 import { Drawer, DrawerGroup, DrawerItem, Input, Button } from '@ui-kitten/components';
+import AuthReminder from '../components/auth/AuthReminder';
+import Header from '../components/header/Header';
 
 const Separator = () => {
     return <View style={styles.separator} />
@@ -34,8 +36,29 @@ export default ChatRoomsScreen = ({navigation}) => {
     const [threads, setThreads] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedIndex, setSelectedIndex] = React.useState(null);
+    const [authenticated, setAuthenticated] = useState(false);
+
+    const __isTheUserAuthenticated = () => {
+      console.log(auth().currentUser);
+
+      if (loading) {
+        setLoading(false)
+      }
+      let user = auth().currentUser;
+      if (user !== null) {
+        console.log(user);
+        setAuthenticated(true)
+      } else {
+        setAuthenticated(false)
+      }
+
+    };
 
     useEffect(() => {
+      const authUnsubscribe = navigation.addListener('focus', () => {
+        __isTheUserAuthenticated();
+      });
+  
 
       const unsubscribe = firestore()
         .collection('MESSAGE_THREADS')
@@ -57,7 +80,11 @@ export default ChatRoomsScreen = ({navigation}) => {
           }
         })
   
-      return () => unsubscribe()
+      
+      return () => {
+        unsubscribe()
+        authUnsubscribe();
+      }
     }, [auth().currentUser])
   
     if (loading) {
@@ -65,48 +92,66 @@ export default ChatRoomsScreen = ({navigation}) => {
     }
 
     return (
-        <View style={styles.container}>
-          <Drawer
-            selectedIndex={selectedIndex}
-            onSelect={index => setSelectedIndex(index)}>
-              {
-                Object.keys(threads).map((key) => {
-                  return (
-                    <DrawerGroup title={() => {
-                      return <Text style={styles.category} >
-                        {key.toUpperCase()}
-                      </Text>
-                    }}>
-                      {
-                        threads[key].map(item => {
-                          return (
-                            
-                            <DrawerItem onPress={() => navigation.navigate('ChatRoom', { thread: item })} title={() => {
+        <>
+
+          {authenticated && (
+            <View style={styles.container}>
+              
+              <Drawer
+                selectedIndex={selectedIndex}
+                onSelect={index => setSelectedIndex(index)}>
+                  {
+                    Object.keys(threads).map((key) => {
+                      return (
+                        <DrawerGroup key={key} title={() => {
+                          return <Text style={styles.category} >
+                            {key.toUpperCase()}
+                          </Text>
+                        }}>
+                          {
+                            threads[key].map(item => {
                               return (
-                                <Text style={styles.room} >
-                                  {item.name}
-                                </Text>)
-                            }}/>
-                          )
-                        })
-                      
-                      }
-                    </DrawerGroup>
-                  )
-                })
-              }
-          </Drawer>
-          <Button onPress={() => navigation.navigate('CreateChatRoom')}>
-              +
-          </Button>
-        </View>
+                                
+                                <DrawerItem key={item.name} onPress={() => navigation.navigate('ChatRoom', { thread: item })} title={() => {
+                                  return (
+                                    <Text style={styles.room} >
+                                      {item.name}
+                                    </Text>)
+                                }}/>
+                              )
+                            })
+                          }
+                        </DrawerGroup>
+                      )
+                    })
+                  }
+              </Drawer>
+                <Button onPress={() => navigation.navigate('CreateChatRoom')}>
+                    +
+                </Button>
+            </View>
+          )}
+          {!authenticated && (
+            <View style={styles.authContainer}>
+              <ImageBackground source={require('../../assets/party.jpeg')} style={styles.image}>
+                <AuthReminder navigation={navigation} />
+              </ImageBackground>
+            </View>
+          )}
+        </>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#dee2eb'
+      backgroundColor: '#dee2eb',
+    },
+    authContainer: {
+      flex: 1,
+      backgroundColor: '#dee2eb',
+      justifyContent: 'center',
+      alignItems: 'center'
     },
     category: {
       fontSize: 20, 
@@ -153,5 +198,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#555',
         height: 0.5,
         flex: 1
+    },
+    image: {
+      flex: 1,
+      resizeMode: "cover",
+      justifyContent: "center",
+      borderWidth: 1,
+      width: '100%',
+      alignItems: 'center'
     }
   })

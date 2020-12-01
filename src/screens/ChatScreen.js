@@ -3,7 +3,7 @@ import { GiftedChat } from 'react-native-gifted-chat';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
-const user = auth().currentUser.toJSON()
+const user = auth().currentUser ? auth().currentUser.toJSON() : null;
 
 export default ChatScreen = ({navigation, route}) => {
     const { thread } = route.params
@@ -25,7 +25,22 @@ export default ChatScreen = ({navigation, route}) => {
         }
     ]);
 
+
+    const __isTheUserAuthenticated = () => {
+        console.log(auth().currentUser);
+
+        let user = auth().currentUser;
+        if (user === null) {
+            navigation.navigate('ChatRooms')
+        }
+  
+    };
+
     useEffect(() => {
+        const authUnsubscribe = navigation.addListener('focus', () => {
+            __isTheUserAuthenticated();
+        });
+
         const unsubscribeListener = firestore()
           .collection('MESSAGE_THREADS')
           .doc(thread._id)
@@ -55,7 +70,11 @@ export default ChatScreen = ({navigation, route}) => {
             setMessages(messages)
           })
       
-        return () => unsubscribeListener()
+        return () => { 
+            unsubscribeListener();
+            authUnsubscribe();
+        }
+
       }, [])
 
     const handleSend = async (newMessage = []) => {
@@ -90,13 +109,16 @@ export default ChatScreen = ({navigation, route}) => {
     }
 
       return (
-        <GiftedChat
-            messages={messages}
-            onSend={handleSend}
-            user={{
-                _id: user.uid
-            }}
-        />
+        <>
+            {console.log('user ', user)}
+            <GiftedChat
+                messages={messages}
+                onSend={handleSend}
+                user={{
+                    _id: user ? user.uid : null
+                }}
+            />
+        </>
       )
 
 }

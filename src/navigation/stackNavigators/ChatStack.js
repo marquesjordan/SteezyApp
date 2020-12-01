@@ -18,9 +18,11 @@ const Stack = createStackNavigator();
 export default ChatStack = () => {
   return (
     <Stack.Navigator>
-        <Stack.Screen name="ChatRooms" component={ChatRoomsScreen} />
+        <Stack.Screen options={{headerShown: false}} name="ChatRooms" component={ChatRoomsScreen} />
         <Stack.Screen name="CreateChatRoom" component={CreateChatRoomScreen} />
         <Stack.Screen name="ChatRoom" component={ChatScreen} />
+        <Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen} />
+        <Stack.Screen options={{headerShown: false}} name="Register" component={RegisterScreen} />
     </Stack.Navigator>
   );
 }
